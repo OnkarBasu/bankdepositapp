@@ -8,7 +8,7 @@ Created on Sat Mar  1 12:28:05 2025
 import streamlit as st
 import pickle
 import pandas as pd
-import matplotlib.pyplot as plt
+
 
 # --- Page Configuration ---
 st.set_page_config(
@@ -130,24 +130,7 @@ if st.button("Predict Deposit Outcome :crystal_ball:"):
     st.success(f"Predicted deposit outcome: **{prediction_label}**")
     st.balloons()
 
-st.markdown("## Data Visualization :bar_chart:")
 
-# Visualization Section: Toggle to display dataset distribution
-if st.checkbox("Show Deposit Distribution"):
-    try:
-        # Load dataset for visualization
-        df_vis = pd.read_csv("bank.csv")
-        deposit_counts = df_vis["deposit"].value_counts()
-        
-        # Create a bar chart using matplotlib
-        fig, ax = plt.subplots()
-        deposit_counts.plot(kind="bar", color=["#4CAF50", "#f44336"], ax=ax)
-        ax.set_title("Deposit Distribution")
-        ax.set_xlabel("Deposit")
-        ax.set_ylabel("Count")
-        st.pyplot(fig)
-    except Exception as e:
-        st.error(f"Error loading visualization: {e}")
 
 st.markdown("---")
 st.write("Thanks for using our app! Have a great day :smiley:")  
