@@ -45,13 +45,13 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-with open("C:/Users/abasu/OneDrive/Desktop/bankproject/logistic_regression_model.pkl", "rb") as model_file:
+with open("logistic_regression_model.pkl", "rb") as model_file:
     model = pickle.load(model_file)
-with open("C:/Users/abasu/OneDrive/Desktop/bankproject/scaler.pkl", "rb") as scaler_file:
+with open("scaler.pkl", "rb") as scaler_file:
     scaler = pickle.load(scaler_file)
-with open("C:/Users/abasu/OneDrive/Desktop/bankproject/label_encoder.pkl", "rb") as le_file:
+with open("label_encoder.pkl", "rb") as le_file:
     label_encoder = pickle.load(le_file)
-with open("C:/Users/abasu/OneDrive/Desktop/bankproject/columns.pkl", "rb") as col_file:
+with open("columns.pkl", "rb") as col_file:
     training_columns = pickle.load(col_file)
 
 # --- App Title and Description ---
