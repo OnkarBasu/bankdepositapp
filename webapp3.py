@@ -10,14 +10,14 @@ import pickle
 import pandas as pd
 
 
-# --- Page Configuration ---
+
 st.set_page_config(
     page_title="Bank Deposit Prediction :bank:",
     page_icon=":money_with_wings:",
     layout="wide"
 )
 
-# --- Custom CSS for Aesthetics ---
+
 st.markdown(
     """
     <style>
@@ -54,12 +54,12 @@ with open("label_encoder.pkl", "rb") as le_file:
 with open("columns.pkl", "rb") as col_file:
     training_columns = pickle.load(col_file)
 
-# --- App Title and Description ---
+
 st.title("Bank Deposit Prediction :sparkles:")
 st.write("### Predict if a customer will subscribe to a term deposit :moneybag:")
 st.markdown("Fill in the customer details below and click **Predict Deposit Outcome**.")
 
-# --- Input Form Container ---
+
 with st.container():
     col1, col2 = st.columns(2)
 
@@ -74,7 +74,7 @@ with st.container():
         pdays = st.number_input("Days Passed After Last Contact", value=-1)
         previous = st.number_input("Contacts Before Campaign", value=0)
 
-    # Categorical Inputs in Column 2
+
     with col2:
         st.subheader("Categorical Features :speech_balloon:")
         job = st.selectbox("Job", options=["admin.", "unknown", "technician", "services", "management", 
@@ -90,7 +90,7 @@ with st.container():
                                                             "jul", "aug", "sep", "oct", "nov", "dec"])
         poutcome = st.selectbox("Previous Campaign Outcome", options=["unknown", "other", "failure", "success"])
 
-# --- Prepare Input Data ---
+
 input_data = {
     "age": age,
     "balance": balance,
@@ -111,19 +111,18 @@ input_data = {
 }
 input_df = pd.DataFrame([input_data])
 
-# Preprocess numerical features using the saved scaler
 num_cols = ["age", "balance", "day", "duration", "campaign", "pdays", "previous"]
 input_df[num_cols] = scaler.transform(input_df[num_cols])
 
-# One-hot encode categorical features
+
 cat_cols = ["job", "marital", "education", "default", "housing", "loan", "contact", "month", "poutcome"]
 input_df = pd.get_dummies(input_df, columns=cat_cols, drop_first=True)
 
-# Reindex to match the training columns (fill missing columns with zeros)
+
 input_df = input_df.reindex(columns=training_columns, fill_value=0)
 
 st.markdown("---")
-# --- Prediction Button ---
+
 if st.button("Predict Deposit Outcome :crystal_ball:"):
     prediction = model.predict(input_df)
     prediction_label = label_encoder.inverse_transform(prediction)[0]
